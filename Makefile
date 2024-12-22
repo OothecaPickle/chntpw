@@ -26,7 +26,11 @@ OSSLLIB=$(OSSLPATH)/lib
 LIBS=-L$(OSSLLIB)
 
 
-all: chntpw chntpw.static cpnt reged reged.static samusrgrp samusrgrp.static sampasswd sampasswd.static
+PREFIX=/usr/local
+INSTALL=install
+
+
+all: chntpw cpnt reged samusrgrp sampasswd samunlock
 
 chntpw: chntpw.o ntreg.o edlib.o libsam.o
 	$(CC) $(CFLAGS) -o chntpw chntpw.o ntreg.o edlib.o libsam.o $(LIBS)
@@ -55,6 +59,11 @@ sampasswd: sampasswd.o ntreg.o libsam.o
 sampasswd.static: sampasswd.o ntreg.o libsam.o
 	$(CC) -static $(CFLAGS) -o sampasswd.static sampasswd.o ntreg.o libsam.o 
 
+samunlock: samunlock.o ntreg.o libsam.o
+	$(CC) $(CFLAGS) -o samunlock samunlock.o ntreg.o libsam.o
+
+samunlock.static: samunlock.o ntreg.o libsam.o
+	$(CC) -static $(CFLAGS) -o samunlock.static samunlock.o ntreg.o libsam.o
 
 
 #ts: ts.o ntreg.o
@@ -65,6 +74,10 @@ sampasswd.static: sampasswd.o ntreg.o libsam.o
 .c.o:
 	$(CC) -c $(CFLAGS) $<
 
+install: all
+	$(INSTALL) -d -m 0755 $(DESTDIR)$(PREFIX)/bin
+	$(INSTALL) -m 0755 chntpw reged samusrgrp sampasswd samunlock $(DESTDIR)$(PREFIX)/bin
+
 clean:
-	rm -f *.o chntpw chntpw.static cpnt reged reged.static samusrgrp samusrgrp.static sampasswd sampasswd.static *~
+	rm -f *.o chntpw cpnt reged samusrgrp sampasswd samunlock *~
 
