@@ -75,9 +75,9 @@ samunlock.static: samunlock.o ntreg.o libsam.o
 	$(CC) -c $(CFLAGS) $<
 
 docs:
-	$(INSTALL) -d -m 0755 $(DESTDIR)$(PREFIX)/share/chntpw
+	$(INSTALL) -d -m 0755 $(DESTDIR)$(PREFIX)/share/doc/chntpw
 	$(INSTALL) -d -m 0755 $(DESTDIR)$(PREFIX)/share/man/man8
-	$(INSTALL) -m 0644 COPYING.txt GPL.txt HISTORY.txt INSTALL.txt LGPL.txt MANUAL.txt README.txt regedit.txt syskey.txt WinReg.txt $(DESTDIR)$(PREFIX)/share/chntpw
+	$(INSTALL) -m 0644 COPYING.txt GPL.txt HISTORY.txt INSTALL.txt LGPL.txt MANUAL.txt README.txt regedit.txt syskey.txt WinReg.txt $(DESTDIR)$(PREFIX)/share/doc/chntpw
 	$(INSTALL) -m 0644 man/*.8 $(DESTDIR)$(PREFIX)/share/man/man8
 
 install: all docs
